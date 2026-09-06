@@ -16,6 +16,7 @@ export const colors = {
   successBg:     '#E1F3E1',
   warning:       '#C97A1F',
   warningBg:     '#FCEAD2',
+  error:         '#C23B22',
   white:         '#FFFFFF',
   black:         '#000000',
   overlayDark:   'rgba(20,12,7,0.55)', // dark scrim over the top photo so white text/icons pop — spec
@@ -31,6 +32,15 @@ export const colors = {
   phoneNotch:    '#1A1410',
   footerScript:  '#B8896A',   // "Local Crafts Global Opportunities"
   sprigTan:      '#C8A97A',
+  // ── Screen 17 AI Image Studio tokens ──
+  studioTerracotta: '#C04A2F',
+  studioDarkBrown: '#2A1B12',
+  studioCream: '#FAF4EE',
+  studioGreen: '#2E6B4E',
+  studioGreenBg: '#EAF4EE',
+  studioBeige: '#E7DCC4',
+  studioInfoBg: '#FFF6E8',
+  studioInfoBorder: '#F2DFC7',
 };
 
 export default colors;

@@ -1,50 +1,59 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import Svg, { Circle, Path, G } from 'react-native-svg';
+import { View, Text, StyleSheet, Image, ImageSourcePropType } from 'react-native';
 import colors from '../theme/colors';
 import typography from '../theme/typography';
 
+const OFFICIAL_MASCOT: ImageSourcePropType = require('../assets/images/shilpsetu_mascot.jpg');
+
 interface LogoProps {
-  size?: 'sm' | 'lg';
+  size?: 'sm' | 'md' | 'lg';
   showSubtitle?: boolean;
+  layout?: 'vertical' | 'horizontal';
 }
 
-export const Logo: React.FC<LogoProps> = ({ size = 'lg', showSubtitle = true }) => {
-  const isLg = size === 'lg';
-  const iconSize = isLg ? 80 : 36;
-  const wordmarkFontSize = isLg ? 28 : 18;
+export const Logo: React.FC<LogoProps> = ({
+  size = 'lg',
+  showSubtitle = true,
+  layout,
+}) => {
+  const isSm = size === 'sm';
+  const isMd = size === 'md';
+  const iconSize = isSm ? 40 : isMd ? 58 : 80;
+  const wordmarkFontSize = isSm ? 15 : isMd ? 20 : 26;
+  const taglineFontSize = isSm ? 8.5 : isMd ? 11.5 : 13;
+  const effectiveLayout = layout || (isSm ? 'horizontal' : 'vertical');
+
+  if (effectiveLayout === 'horizontal') {
+    return (
+      <View style={styles.horizontalContainer}>
+        <Image
+          source={OFFICIAL_MASCOT}
+          style={[styles.mascotImage, { width: iconSize, height: iconSize, borderRadius: iconSize / 2 }]}
+          resizeMode="contain"
+        />
+        <View style={styles.horizontalTextWrap}>
+          <Text style={[styles.wordmark, { fontSize: wordmarkFontSize, letterSpacing: 1.5 }]}>
+            SHILPSETU
+          </Text>
+          {showSubtitle && (
+            <Text style={[styles.tagline, { fontSize: taglineFontSize }]}>
+              — Hunar se Bazaar Tak —
+            </Text>
+          )}
+        </View>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
-      {/* Mascot Circle with Tri-color Ring */}
-      <View style={[styles.mascotContainer, { width: iconSize, height: iconSize }]}>
-        <Svg width={iconSize} height={iconSize} viewBox="0 0 100 100">
-          {/* Tri-color Arc Rings */}
-          <Circle cx="50" cy="50" r="46" stroke="#2F8B3B" strokeWidth="4" strokeDasharray="90 200" fill="none" />
-          <Circle cx="50" cy="50" r="46" stroke="#C97A1F" strokeWidth="4" strokeDasharray="90 200" strokeDashoffset="-95" fill="none" />
-          <Circle cx="50" cy="50" r="46" stroke="#B5502B" strokeWidth="4" strokeDasharray="90 200" strokeDashoffset="-190" fill="none" />
-          
-          {/* Background Surface */}
-          <Circle cx="50" cy="50" r="42" fill="#FFFDF9" />
-          
-          {/* Stylized Artisan Mascot (Turbaned Artisan holding a pot/bowl) */}
-          <G id="artisan-mascot">
-            {/* Turban */}
-            <Path d="M35 38 C35 25, 65 25, 65 38 C65 32, 35 32, 35 38 Z" fill="#B5502B" />
-            <Path d="M38 32 C42 22, 58 22, 62 32 Z" fill="#C97A1F" />
-            <Circle cx="50" cy="24" r="4" fill="#2F8B3B" />
-
-            {/* Face */}
-            <Circle cx="50" cy="42" r="10" fill="#E7D8C3" />
-            <Path d="M44 46 C48 50, 52 50, 56 46" stroke="#2A1B12" strokeWidth="2" strokeLinecap="round" fill="none" />
-
-            {/* Body/Robes */}
-            <Path d="M32 68 C32 54, 68 54, 68 68 Z" fill="#6E5B4E" />
-
-            {/* Bowl / Terracotta Vessel held in hands */}
-            <Path d="M42 62 C42 70, 58 70, 58 62 Z" fill="#B5502B" />
-          </G>
-        </Svg>
+      {/* Official ShilpSetu Artisan Mascot Image */}
+      <View style={[styles.mascotContainer, { width: iconSize, height: iconSize, borderRadius: iconSize / 2 }]}>
+        <Image
+          source={OFFICIAL_MASCOT}
+          style={[styles.mascotImage, { width: iconSize, height: iconSize, borderRadius: iconSize / 2 }]}
+          resizeMode="contain"
+        />
       </View>
 
       {/* Wordmark & Tagline */}
@@ -52,8 +61,8 @@ export const Logo: React.FC<LogoProps> = ({ size = 'lg', showSubtitle = true }) 
         <Text style={[styles.wordmark, { fontSize: wordmarkFontSize }]}>
           SHILPSETU
         </Text>
-        {isLg && showSubtitle && (
-          <Text style={styles.tagline}>
+        {showSubtitle && (
+          <Text style={[styles.tagline, { fontSize: taglineFontSize }]}>
             — Hunar se Bazaar Tak —
           </Text>
         )}
@@ -67,30 +76,44 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  mascotContainer: {
-    marginBottom: 6,
+  horizontalContainer: {
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  horizontalTextWrap: {
+    marginLeft: 8,
+    alignItems: 'flex-start',
+  },
+  mascotContainer: {
+    marginBottom: 3,
+    alignItems: 'center',
+    justifyContent: 'center',
+    overflow: 'hidden',
+    backgroundColor: '#FFFDF9',
+  },
+  mascotImage: {
+    width: '100%',
+    height: '100%',
   },
   textContainer: {
     alignItems: 'center',
   },
   wordmark: {
     fontFamily: typography.fonts.wordmark,
-    fontWeight: '800',
+    fontWeight: '900',
     color: colors.textDark,
-    letterSpacing: 2,
+    letterSpacing: 1.8,
     textShadowColor: colors.white,
-    textShadowOffset: { width: 1, height: 1 },
+    textShadowOffset: { width: 0.5, height: 0.5 },
     textShadowRadius: 1,
   },
   tagline: {
     fontFamily: typography.fonts.serifSemiBold,
-    fontSize: 13,
     fontStyle: 'italic',
     color: colors.primary,
-    marginTop: 2,
-    letterSpacing: 0.5,
+    marginTop: 1,
+    letterSpacing: 0.3,
   },
 });
 

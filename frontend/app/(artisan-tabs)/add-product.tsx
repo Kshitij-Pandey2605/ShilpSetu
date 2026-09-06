@@ -22,6 +22,8 @@ import {
   Plus,
   X,
   ChevronDown,
+  Sparkles,
+  ArrowRight,
 } from 'lucide-react-native';
 import colors from '../../theme/colors';
 import typography from '../../theme/typography';
@@ -148,6 +150,22 @@ export default function AddProductScreen() {
               </TouchableOpacity>
             )}
           </ScrollView>
+
+          {/* AI Image Studio Entry Banner */}
+          <TouchableOpacity
+            style={styles.aiStudioBanner}
+            onPress={() => router.push('/artisan/image-studio' as any)}
+            activeOpacity={0.85}
+          >
+            <View style={styles.aiStudioIconCircle}>
+              <Sparkles size={17} color={colors.studioTerracotta} />
+            </View>
+            <View style={styles.aiStudioTextWrap}>
+              <Text style={styles.aiStudioTitle}>✨ Try AI Image Studio (Screen 17)</Text>
+              <Text style={styles.aiStudioSub}>Enhance lighting, clarity & background with AI</Text>
+            </View>
+            <ArrowRight size={16} color={colors.studioTerracotta} />
+          </TouchableOpacity>
         </View>
 
         {/* Product Name Input */}
@@ -585,5 +603,39 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: 12,
+  },
+  aiStudioBanner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#FAF4EE',
+    borderWidth: 1,
+    borderColor: '#E7D8C3',
+    borderRadius: 14,
+    padding: 10,
+    marginTop: 12,
+  },
+  aiStudioIconCircle: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: '#FFFFFF',
+    borderWidth: 1,
+    borderColor: '#E7D8C3',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 10,
+  },
+  aiStudioTextWrap: {
+    flex: 1,
+  },
+  aiStudioTitle: {
+    fontFamily: typography.fonts.bodySemiBold,
+    fontSize: 13,
+    color: colors.studioTerracotta,
+  },
+  aiStudioSub: {
+    fontFamily: typography.fonts.bodyRegular,
+    fontSize: 11,
+    color: colors.textBody,
   },
 });

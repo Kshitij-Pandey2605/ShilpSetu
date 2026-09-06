@@ -55,6 +55,22 @@ export default function RootLayout() {
             <Stack.Screen name="setup/buyer-step-2" />
             <Stack.Screen name="setup/buyer-step-3" />
             <Stack.Screen name="(artisan-tabs)" />
+            <Stack.Screen name="artisan/image-studio" />
+            <Stack.Screen name="artisan/voice-input" />
+            <Stack.Screen name="artisan/catalog-review" />
+            <Stack.Screen name="artisan/capability-profile" />
+            <Stack.Screen name="artisan/price-assistant" />
+            <Stack.Screen name="artisan/publish-product" />
+            <Stack.Screen name="artisan/product-library" />
+            <Stack.Screen name="artisan/product-detail" />
+            <Stack.Screen name="artisan/business-page" />
+            <Stack.Screen name="artisan/buyer-opportunities" />
+            <Stack.Screen name="artisan/rfq-detail" />
+            <Stack.Screen name="artisan/send-quotation" />
+            <Stack.Screen name="buyer/home" />
+            <Stack.Screen name="buyer/requirement-creator" />
+            <Stack.Screen name="buyer/requirement-review" />
+            <Stack.Screen name="buyer/smart-match" />
           </Stack>
         </AppProvider>
       </LanguageProvider>
